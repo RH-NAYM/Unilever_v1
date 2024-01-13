@@ -141,22 +141,21 @@ async def status():
 async def create_items(items: Union[Item, List[Item]]):
     try:
         results = await image_processor_api.process_items(items)
-        # print("Result Sent to User:", results)
-        print("-"*100)
-        # print(items)
-        print("Last Execution Time : ", get_bd_time())
         return results
     except Exception as e:
         global total_error
         total_error += 1
-        logger.info(f"Time:{get_bd_time()}, Execution Failed and Total Failed Execution : {total_error}, Payload:{items}")
+        logger.info(f"Time:{get_bd_time()}, Failed : {total_error}, Payload:{items}")
         logger.error(str(e))
         print(f"Error processing data: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error processing data: {str(e)}")
     finally:
         global total_done
         total_done +=1
-        logger.info(f"Time:{get_bd_time()}, Execution Done and Total Successfull Execution : {total_done}, Payload:{items}")
+        print("-"*100)
+        print("Outlet Covered : ",total_done)
+        print("Last Execution Time : ", get_bd_time())
+        logger.info(f"Time:{get_bd_time()}, Successfull : {total_done}, Payload:{items}")
         torch.cuda.empty_cache()
         pass
 if __name__ == "__main__":
