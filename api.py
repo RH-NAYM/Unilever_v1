@@ -5,7 +5,7 @@ from concurrent.futures import ThreadPoolExecutor
 from typing import List, Union
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from main7 import ImageProcessor
+from main import ImageProcessor
 import torch
 from datetime import datetime
 import pytz
